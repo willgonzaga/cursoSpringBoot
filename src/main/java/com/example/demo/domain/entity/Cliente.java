@@ -2,14 +2,12 @@ package com.example.demo.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @NoArgsConstructor

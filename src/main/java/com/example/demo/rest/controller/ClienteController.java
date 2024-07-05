@@ -6,7 +6,6 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -44,13 +43,13 @@ public class ClienteController {
     @ResponseStatus(NO_CONTENT)
     public void delete(@PathVariable int id) {
         repository
-            .findById(id)
-            .map(cliente -> {
-                repository.delete(cliente);
-                return cliente;
-            }).orElseThrow(() ->
-                    new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado")
-            );
+                .findById(id)
+                .map(cliente -> {
+                    repository.delete(cliente);
+                    return cliente;
+                }).orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado")
+                );
     }
 
     @PutMapping("/atualizar/{id}")
@@ -67,7 +66,7 @@ public class ClienteController {
     }
 
     @GetMapping
-    public List<Cliente> find(Cliente filtro){
+    public List<Cliente> find(Cliente filtro) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
@@ -75,5 +74,6 @@ public class ClienteController {
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
 
         Example<Cliente> example = Example.of(filtro, matcher);
-        return repository.findAll(example);}
+        return repository.findAll(example);
+    }
 }

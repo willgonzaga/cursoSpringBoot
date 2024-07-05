@@ -69,7 +69,7 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     private List<ItemPedido> converterItens(Pedido pedido, List<ItemPedidoDTO> itens) {
-        if(itens.isEmpty()) {
+        if (itens.isEmpty()) {
             throw new RegraNegocioException("Não é possivel realizar um pedido sem itens.");
         }
 

@@ -8,11 +8,11 @@ import com.example.demo.rest.dto.InformacaoItemPedidoDTO;
 import com.example.demo.rest.dto.InformacoesPedidoDTO;
 import com.example.demo.rest.dto.PedidoDTO;
 import com.example.demo.service.PedidoService;
+import jakarta.validation.Valid;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +40,7 @@ public class PedidoController {
     public InformacoesPedidoDTO getById(@PathVariable int id) {
         return service
                 .obterPedidoCompleto(id)
-                .map(p -> converter(p) )
+                .map(p -> converter(p))
                 .orElseThrow(() ->
                         new ResponseStatusException(NOT_FOUND, "Pedido não encontrado."));
     }
@@ -80,7 +80,6 @@ public class PedidoController {
                         .build()
         ).collect(Collectors.toList());
     }
-
 
 
 }

@@ -8,11 +8,11 @@ import com.example.demo.rest.dto.InformacaoItemPedidoDTO;
 import com.example.demo.rest.dto.InformacoesPedidoDTO;
 import com.example.demo.rest.dto.PedidoDTO;
 import com.example.demo.service.PedidoService;
-import jakarta.validation.Valid;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;

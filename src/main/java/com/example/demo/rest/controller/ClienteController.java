@@ -2,6 +2,7 @@ package com.example.demo.rest.controller;
 
 import com.example.demo.domain.entity.Cliente;
 import com.example.demo.domain.repository.Clientes;
+import io.swagger.annotations.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/clientes")
+@Api("Api de Clientes")
 public class ClienteController {
 
     private Clientes repository;
@@ -24,7 +26,12 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public Cliente getClienteById(@PathVariable int id) {
+    @ApiOperation("Obter detalhes de um cliente")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Cliente encontrado"),
+            @ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado")
+    })
+    public Cliente getClienteById(@PathVariable @ApiParam("Id do cliente") int id) {
         return repository
                 .findById(id)
                 .orElseThrow(() ->
@@ -34,12 +41,22 @@ public class ClienteController {
 
     @PostMapping("/save")
     @ResponseStatus(CREATED)
+    @ApiOperation("Salva um novo cliente")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Cliente salvo com sucesso"),
+            @ApiResponse(code = 400, message = "Erro de validação")
+    })
     public Cliente save(@RequestBody @Valid Cliente cliente) {
         return repository.save(cliente);
     }
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(NO_CONTENT)
+    @ApiOperation("Excluir um cliente")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Cliente excluido com sucesso"),
+            @ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado")
+    })
     public void delete(@PathVariable int id) {
         repository
                 .findById(id)
@@ -65,6 +82,11 @@ public class ClienteController {
     }
 
     @GetMapping
+    @ApiOperation("Obter detalhes de varios clientes")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Cliente encontrado"),
+            @ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado")
+    })
     public List<Cliente> find(Cliente filtro) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
